@@ -200,10 +200,12 @@ func displayHelpCMD() {
 }
 
 func displayHelp() {
-	fmt.Println("\n参数说明:")
-	fmt.Println("-root", "要计算hash的根目录")
-	fmt.Println("-filter", "需要过滤的目录或文件，支持通配符")
-	fmt.Println("-filter", "最后写入的文件路径")
+	fmt.Println("*********************************************")
+	fmt.Println("*  参数说明:                                *")
+	fmt.Println("*  -root", "要计算hash的根目录                 *")
+	fmt.Println("*  -filter", "需要过滤的目录或文件，支持通配符 *")
+	fmt.Println("*  -output", "最后写入的文件路径               *")
+	fmt.Println("*********************************************")
 }
 
 func main() {
@@ -214,14 +216,20 @@ func main() {
 
 	flag.Parse()
 
-	args := flag.Args()
+	args    := flag.Args()
+	hasHelp := false
 	if len(args) >= 1 {
 		for _, value := range args {
 			if value == "help" {
+				hasHelp = true
 				displayHelp()
 				break;
 			}
 		}
+	}
+
+	if hasHelp && *root == "" {
+		os.Exit(0)
 	}
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
