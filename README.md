@@ -9,12 +9,12 @@ go build
 ./treehash -root=/Users/liushen/dev/docs
 ```  
 
-(https://github.com/shen100/treehash/raw/master/images/1.png)    
+![image](https://github.com/shen100/treehash/raw/master/images/1.png)    
 
 
 ## 命令与参数
 运行`./treehash help`，显示帮助  
-(https://github.com/shen100/treehash/raw/master/images/2.png)  
+![image](https://github.com/shen100/treehash/raw/master/images/2.png)  
 
 | 参数 | 说明 |
 | -------- | -------- |
