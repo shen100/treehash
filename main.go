@@ -9,7 +9,6 @@ import (
 	"runtime"
 	"os"
 	"regexp"
-	"sync"
 	"time"
 )
 
@@ -36,12 +35,10 @@ const (
 	NoChildrenErr
 )
 
-var mu sync.Mutex
-
-var hashChanel = make(chan *Node, 20)
+var hashChanel = make(chan *Node, 100)
 
 // MaxWriterCount 同时写hash的最大并发数
-const MaxWriterCount = 20
+const MaxWriterCount = 100
 
 // OutputPath 默认的输出文件路径
 const OutputPath = "treehash.txt"
@@ -72,9 +69,7 @@ func createWriter(output string) {
 
 		data := fmt.Sprintf("%s,%x,%d\n", node.Path, hash.Sum(nil), node.Size)
 		buf  := []byte(data)
-		mu.Lock()
 		fd.Write(buf)
-		mu.Unlock()
 		if fdErr := fd.Close(); fdErr != nil {
 			fmt.Println(fdErr.Error())
 			os.Exit(-1)	
